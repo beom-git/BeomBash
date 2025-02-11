@@ -2,6 +2,7 @@
 The ".bashrc" and ".bash(configuration files)" for all my development environments.
 
 # Files
+```
 .bashrc
 .bash
 ├── .bash_alias
@@ -9,3 +10,4 @@ The ".bashrc" and ".bash(configuration files)" for all my development environmen
 ├── .bash_function
 ├── .bash_motd
 └── .bash_profile
+```
