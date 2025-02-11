@@ -8,7 +8,7 @@ printf " |___/\___|\___/|_| |_|\__, |_.__/ \___|\___/|_| |_| |_| \n"
 printf "                       |___/                             \n"
 printf "                                                         \n"
 printf "  Today: `date`                                          \n"
-if [ -x `which landscape-sysinfo` ]; then
+if [ command landscape-sysinfo &> /dev/null ]; then
     landscape-sysinfo
 fi
 printf "                                                         \n"
