@@ -1,0 +1,19 @@
+#!/bin/bash -f
+
+#
+# alias #1 : list
+#
+alias ll='ls -alF'
+alias la='ls -A'
+
+#
+# alias #2 : Change directory
+#
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+
+#
+# alias #3 : git
+# 

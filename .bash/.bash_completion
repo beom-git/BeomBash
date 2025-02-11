@@ -1,0 +1,15 @@
+#!/bin/bash -f
+
+#
+# Git completion
+#
+# prior to git 2.30, you an use _git instead of __git_main
+#
+
+git_version=$(git --version | awk '{print $3}')
+git_major=$(echo "$git_version" | awk -F. '{print $1}')
+git_minor=$(echo "$git_version" | awk -F. '{print $2}')
+if [[ $git_major -ge 2 && $git_minor -ge 30 ]]; then # git version >= 2.30
+    printf "git version is %s\n" "$git_version"
+    # source /usr/share/bash-completion/completions/git
+fi

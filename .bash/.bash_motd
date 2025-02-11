@@ -1,0 +1,14 @@
+#!/bin/bash -f
+
+printf "                             _                           \n"
+printf "  ___  ___  ___  _ __   __ _| |__   ___  ___  _ __ ___   \n"
+printf " / __|/ _ \/ _ \| '_ \ / _' | '_ \ / _ \/ _ \| '_ ' _ \  \n"
+printf " \__ \  __/ (_) | | | | (_| | |_) |  __/ (_) | | | | | | \n"
+printf " |___/\___|\___/|_| |_|\__, |_.__/ \___|\___/|_| |_| |_| \n"
+printf "                       |___/                             \n"
+printf "                                                         \n"
+printf "  Today: `date`                                          \n"
+if [ -x `which landscape-sysinfo` ]; then
+    landscape-sysinfo
+fi
+printf "                                                         \n"

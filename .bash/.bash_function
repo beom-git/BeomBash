@@ -1,0 +1,20 @@
+#!/bin/bash -f
+
+#
+# Function #1 : mkcd 
+#   make directory and cd into it
+#
+# Usage: mkcd <dir>
+function mkcd() {
+    mkdir -p "$@" && cd "$@"
+    printf "Created and changed to directory: %s\n" "$@"
+}
+
+#
+# Function #2 : gitlog
+#   show git log with pretty format
+#
+# Usage: gitlog
+function gitlog() {
+    git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+}
