@@ -33,7 +33,6 @@
 	    alias egrep='egrep --color=auto'
 	fi
 
-
 #
 # Step #2 : Set Welcome Banner
 #
@@ -65,22 +64,27 @@
     export HISTTIMEFORMAT='%Y-%m-%d %H:%M:%S '
     HISTSIZE=10
     HISTFILESIZE=100
-    
-    # Set change directory without cd command
-    # shopt -s autocd
 
-    # Append to the history file, don't overwrite it
-    # shopt -s histappend
+    if [ command shopt &> /dev/null ]; then
+        
+        # Set change directory without cd command
+        # shopt -s autocd
 
-    # Check the window size after each command and, if necessary,
-    # update the values of LINES and COLUMNS.
-    # shopt -s checkwinsize
+        # Append to the history file, don't overwrite it
+        # shopt -s histappend
 
-    # If set, the pattern "**" used in a pathname expansion context will
-    # match all files and zero or more directories and subdirectories.
-    #
-    # Example: `ls **/bin` will show all files in all the subdirectories of bin.
-    shopt -s globstar
+        # Check the window size after each command and, if necessary,
+        # update the values of LINES and COLUMNS.
+        # shopt -s checkwinsize
+
+        # If set, the pattern "**" used in a pathname expansion context will
+        # match all files and zero or more directories and subdirectories.
+        #
+        # Example: `ls **/bin` will show all files in all the subdirectories of bin.
+        shopt -s globstar
+    else
+        printf "[INFO] 'shopt' command not found, skipping shell options\n"
+    fi
 
 #
 # Step #4 : Set Alias
