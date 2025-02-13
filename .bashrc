@@ -8,7 +8,6 @@
 #
     umask 022
 
-#
 # Step #1 : Set prompt
 #
 # Description : (%h:%m) username@hostname: current path
@@ -62,7 +61,7 @@
 
     # Set history length and format.
     export HISTTIMEFORMAT='%Y-%m-%d %H:%M:%S '
-    HISTSIZE=10
+    HISTSIZE=20
     HISTFILESIZE=100
 
     if [ command shopt &> /dev/null ]; then
@@ -82,10 +81,17 @@
         #
         # Example: `ls **/bin` will show all files in all the subdirectories of bin.
         shopt -s globstar
-    else
-        printf "[INFO] 'shopt' command not found, skipping shell options\n"
+    # else
+    #     printf "[INFO] 'shopt' command not found, skipping shell options\n"
     fi
-
+    
+    # when WSL2 is used, add Windows path to PATH
+    if [ -d /mnt/c/Windows ]; then
+        export PATH=$PATH:/mnt/c/Windows
+    # else 
+    #     echo "Windows path not found"
+    fi
+    
 #
 # Step #4 : Set Alias
 #
