@@ -47,13 +47,3 @@ printf "  Today: `date +%c`                                      \n"
 printf "                                                         \n"
 printf "`landscape-sysinfo-byBeom`\n"
 printf "                                                         \n"
-
-#------------------------------------------------------------
-# Step #3 : Clean up
-#------------------------------------------------------------
-unset -f landscape-sysinfo-sysload
-unset -f landscape-sinfo-procs
-unset -f landscape-sysinfo-diskUsage
-unset -f landscape-sysinfo-memUsage
-unset -f landscape-sysinfo-swapUsage
-unset -f landscape-sysinfo-byBeom

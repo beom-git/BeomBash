@@ -8,6 +8,7 @@
 #
     umask 022
 
+#
 # Step #1 : Set prompt
 #
 # Description : (%h:%m) username@hostname: current path
@@ -31,6 +32,10 @@
 	    alias fgrep='fgrep --color=auto'
 	    alias egrep='egrep --color=auto'
 	fi
+    
+    # Call the function to set LS_COLORS to molokai theme
+    LS_COLORS=$LS_COLORS_MOLOKAI
+    export LS_COLORS
 
 #
 # Step #2 : Set Welcome Banner
@@ -117,4 +122,13 @@ fi
 
 if [ -f ~/.bash/.bash_completion ]; then 
     source ~/.bash/.bash_completion
+fi
+
+#
+# Step $7 : Unset Variables
+#
+# Description : Clean up the environment
+#
+if [ -f ~/.bash/.bash_unset ]; then 
+    source ~/.bash/.bash_unset
 fi

@@ -1,0 +1,53 @@
+#!/bin/bash -f
+
+#
+# Step #1 : Set prompt
+#
+unset LS_COLORS_AYU
+unset LS_COLORS_DRACULA
+unset LS_COLORS_GRUVBOX_DARK
+unset LS_COLORS_GRUVBOX_DARK_HARD
+unset LS_COLORS_GRUVBOX_DARK_SOFT
+unset LS_COLORS_GRUVBOX_LIGHT
+unset LS_COLORS_GRUVBOX_LIGHT_HARD
+unset LS_COLORS_GRUVBOX_LIGHT_SOFT
+unset LS_COLORS_ICEBERG_DARK
+unset LS_COLORS_JELLYBEANS
+unset LS_COLORS_LAVA
+unset LS_COLORS_MOLOKAI
+unset LS_COLORS_NORD
+unset LS_COLORS_ONE_DARK
+unset LS_COLORS_ONE_LIGHT
+unset LS_COLORS_SNAZZY
+unset LS_COLORS_SOLARIZED_DARK
+unset LS_COLORS_SOLARIZED_LIGHT
+
+#
+# Step #2 : Set Welcome Banner
+#
+unset -f landscape-sysinfo-sysload
+unset -f landscape-sinfo-procs
+unset -f landscape-sysinfo-diskUsage
+unset -f landscape-sysinfo-memUsage
+unset -f landscape-sysinfo-swapUsage
+unset -f landscape-sysinfo-byBeom
+
+#
+# Step #3 : Set Shell Options 
+#
+
+
+#
+# Step #4 : Set Alias
+#
+
+
+#
+# Step #5 : Set User Defined Functions
+#
+
+
+#
+# Step #6 : Set User Defined Completion
+#
+
