@@ -97,6 +97,17 @@
     #     echo "Windows path not found"
     fi
     
+    # when environment-modules is installed, set to use 'module' command
+    if [ -d /usr/share/Modules/init ]; then
+        source "/usr/share/Modules/init/bash"
+    fi
+
+    # when environment-modules is used, add MODULEPATH
+    if [ command module &> /dev/null ]; then
+        if [ -d ~/BeomBash/modules ]; then
+            module use ~/BeomBash/modules
+        fi
+    fi
 #
 # Step #4 : Set Alias
 #
