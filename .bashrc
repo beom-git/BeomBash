@@ -19,7 +19,7 @@
     fi 
 
     #PS1="(\A) \[\033[01;32m\]\u@\h⛄:\[\033[01;34m\]\W\[\033[00m\]\$ "
-    export PS1="(\A) \[${C_Bold_GREEN}\]\u@\h⛄:\[${C_Bold_BLUE}\]\W\[${C_End}\]\$ "
+    export PS1="(\A) \[${C_Bold_GREEN}\]\u@\h⛄:\[${C_Bold_BLUE}\]\w\[${C_End}\]\$ "
 
 	# enable color support of ls and also add handy aliases
 	if [ -x /usr/bin/dircolors ]; then
