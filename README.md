@@ -11,7 +11,7 @@ The ".bashrc" and ".bash(configuration files)" for all my development environmen
 │   ├── .bash_profile
 │   └── .bash_unset
 ├── .bashrc
-├── modules
+├── modules (=Private Repo)
 │   ├── .utils
 │   │   ├── ModulesPrint.tcl
 │   │   ├── ModulesEnvironment.tcl
