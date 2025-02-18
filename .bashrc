@@ -103,10 +103,9 @@
     fi
 
     # when environment-modules is used, add MODULEPATH
-    if [ command module &> /dev/null ]; then
-        if [ -d ~/BeomBash/modules ]; then
-            module use ~/BeomBash/modules
-        fi
+    if [ -d ~/BeomBash/modules ]; then
+        module use ~/BeomBash/modules
+        module load xilinx/vivado/2023.1
     fi
 #
 # Step #4 : Set Alias
