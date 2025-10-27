@@ -1,5 +1,14 @@
 #!/bin/bash -f
 
+#----------------------------------------------------------------------
+# Color codes
+#----------------------------------------------------------------------
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+YELLOW='\033[0;33m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
 #
 # Function #1 : mkcd 
 #   make directory and cd into it
@@ -19,19 +28,24 @@ function b_gitlog() {
     git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 }
 
+function b_gitpull() {
+    git stash; git pull; git stash pop;
+}
 
 #
 #
-function b_checklic() {
+function b_check_lic() {
     /data/config/env/:lic_checker
 }
 
 #
 #
-function b_checkmem() {
+function b_check_mem() {
     ps -e -o pid,user,%mem,cmd --sort=-%mem | head -n 10
 }
 
+#
+#
 function b_checkswap() {
     ps -ef | head -n 1
     grep VmSwap /proc/[0-9]*/status \
@@ -46,8 +60,68 @@ function b_checkswap() {
         done
 }
 
-#
-#
-function b_getfilelist() {
+# -----------------------------------------------------------
+# b_check_process <process_name>
+#   Count number of running processes per user
+#   Example: b_check_process tcsh
+# -----------------------------------------------------------
+function b_check_process() {
+    local proc="$1"
+    if [[ -z "$proc" ]]; then
+        echo "Usage: b_check_process <process_name>"
+        return 1
+    fi
+
+    ps -eo user,comm | awk -v p="$proc" '$2==p{count[$1]++} END{for(u in count) print u, count[u]}'
+}
+
+# -----------------------------------------------------------
+# filelist
+# -----------------------------------------------------------
+function b_get_vlog_filelist() {
     xmls -source $1
 }
+
+function b_find_files() {
+  local OPTIND opt path pattern include_pattern exclude_pattern
+  OPTIND=1
+  while getopts "d:p:i:e:h" opt; do
+    case $opt in
+      d) path=$OPTARG ;;
+      p) pattern=$OPTARG ;;
+      i) include_pattern=$OPTARG ;;
+      e) exclude_pattern=$OPTARG ;;
+      h) echo "Usage: b_find_files -d <target_dir_path> -p <pattern> [-i <include_pattern>] [-e <exclude_pattern>]"; return ;;
+      \?) return 1 ;;
+    esac
+  done
+  # Check
+  [[ -z $path || -z $pattern ]] && \
+    echo -e "${RED}ERROR${NC}: -d '$path' or -p '$pattern' is empty" && return 1
+  # Execute
+  find -L "$path" -name "$pattern" \
+    | { [[ $include_pattern ]] && grep "$include_pattern" || cat; } \
+    | { [[ $exclude_pattern ]] && grep -v "$exclude_pattern" || cat; }
+}
+
+# -----------------------------------------------------------
+# symbolic link
+# -----------------------------------------------------------
+function b_find_symbolic() {
+    find . -type l -printf "%p --> %l\n"
+}
+
+function b_find_broken_symbolic() {
+    find . -type l -exec sh -c 'file -b "$1" | grep -q "^broken"' sh {} \; -print
+}
+
+# -----------------------------------------------------------
+# source env
+# -----------------------------------------------------------
+function b_source_pj() {
+    source "$(git rev-parse --show-toplevel)/sourceMe.bashrc"
+}
+
+# -----------------------------------------------------------
+#
+# -----------------------------------------------------------

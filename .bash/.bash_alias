@@ -17,3 +17,8 @@ alias .....='cd ../../../..'
 #
 # alias #3 : git
 # 
+
+#
+# alias #4 : source
+# 
+alias so='source ~/.bashrc'

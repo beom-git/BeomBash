@@ -102,10 +102,16 @@
         source "/usr/share/Modules/init/bash"
     fi
 
+    # .bachrc
+    if [ -d /usr/local/modules/_config ]; then
+        source "/usr/local/modules/_config/module.bashrc"
+        source "${MODULESHOME}/init/bash_completion"
+    fi
+
     # when environment-modules is used, add MODULEPATH
     if [ -d ~/BeomBash/modules ]; then
         module use ~/BeomBash/modules
-        module load xilinx/vivado/2023.1
+        # module load xilinx/vivado/2023.1
     fi
 #
 # Step #4 : Set Alias
@@ -142,3 +148,4 @@ fi
 if [ -f ~/.bash/.bash_unset ]; then 
     source ~/.bash/.bash_unset
 fi
+alias docker=podman
