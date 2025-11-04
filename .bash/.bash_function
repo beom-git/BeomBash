@@ -19,32 +19,59 @@ function b_mkcd() {
     printf "Created and changed to directory: %s\n" "$@"
 }
 
-#
-# Function #2 : gitlog
+#--------------------------------------------------------------------------------
+# Function #2 : Git
+#--------------------------------------------------------------------------------
 #   show git log with pretty format
 #
 # Usage: gitlog
-function b_gitlog() {
+function b_git_log() {
     git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 }
 
-function b_gitpull() {
+function b_git_pull() {
     git stash; git pull; git stash pop;
 }
 
 #
+# b_git_print_*
 #
-function b_check_lic() {
+# Added (A), Copied (C), Deleted (D), Modified (M), Renamed (R), have their type (i.e. regular file, symlink, submodule, ...)
+# changed (T), are Unmerged (U), are Unknown (X),
+#
+function b_git_print_added() {
+    git diff --cached --name-only --diff-filter=A
+}
+
+function b_git_print_modified() {
+    git diff --cached --name-only --diff-filter=M
+}
+
+function b_git_print_renamed() {
+    git diff --cached --name-only --diff-filter=R
+}
+
+function b_git_print_deleted() {
+    git diff --cached --name-only --diff-filter=D
+}
+
+
+# -----------------------------------------------------------
+# Function #3 : License
+# -----------------------------------------------------------
+function b_checklic() {
     /data/config/env/:lic_checker
 }
 
-#
-#
-function b_check_mem() {
+# -----------------------------------------------------------
+# Function #4 : Resources
+# -----------------------------------------------------------
+function b_checkmem() {
     ps -e -o pid,user,%mem,cmd --sort=-%mem | head -n 10
 }
 
 #
+# b_checkswap
 #
 function b_checkswap() {
     ps -ef | head -n 1
@@ -60,11 +87,12 @@ function b_checkswap() {
         done
 }
 
-# -----------------------------------------------------------
+#
 # b_check_process <process_name>
-#   Count number of running processes per user
-#   Example: b_check_process tcsh
-# -----------------------------------------------------------
+#   : Count number of running processes per user
+# 
+# Example: b_check_process tcsh
+#
 function b_check_process() {
     local proc="$1"
     if [[ -z "$proc" ]]; then
@@ -76,7 +104,7 @@ function b_check_process() {
 }
 
 # -----------------------------------------------------------
-# filelist
+# Function #5 : Utils
 # -----------------------------------------------------------
 function b_get_vlog_filelist() {
     xmls -source $1
@@ -105,7 +133,7 @@ function b_find_files() {
 }
 
 # -----------------------------------------------------------
-# symbolic link
+# Function #6 : symbolic link
 # -----------------------------------------------------------
 function b_find_symbolic() {
     find . -type l -printf "%p --> %l\n"
@@ -116,7 +144,7 @@ function b_find_broken_symbolic() {
 }
 
 # -----------------------------------------------------------
-# source env
+# Function #7 : source env
 # -----------------------------------------------------------
 function b_source_pj() {
     source "$(git rev-parse --show-toplevel)/sourceMe.bashrc"
