@@ -66,14 +66,29 @@ function b_checklic() {
 # -----------------------------------------------------------
 # Function #4 : Resources
 # -----------------------------------------------------------
-function b_checkmem() {
+# Show system information
+function b_sysinfo() {
+    echo "=== System Information ==="
+    echo "Hostname: $(hostname)"
+    echo "Uptime: $(uptime -p)"
+    echo "Load Average: $(uptime | awk -F'load average:' '{print $2}')"
+    echo "Memory: $(free -h | awk 'NR==2{printf "%.1f%% used (%s/%s)\n", $3*100/$2, $3, $2}')"
+    echo "Disk: $(df -h / | awk 'NR==2{printf "%s used (%s available)\n", $5, $4}')"
+}
+
+# Show top CPU consuming processes
+function b_check_cpu() {
+    ps -eo pid,user,%cpu,cmd --sort=-%cpu | head -15
+}
+
+
+# Check DRAM memory usage by processes
+function b_check_mem() {
     ps -e -o pid,user,%mem,cmd --sort=-%mem | head -n 10
 }
 
-#
-# b_checkswap
-#
-function b_checkswap() {
+# Check swap memory usage by processes
+function b_check_swap() {
     ps -ef | head -n 1
     grep VmSwap /proc/[0-9]*/status \
         | head -n 20 \
@@ -103,9 +118,54 @@ function b_check_process() {
     ps -eo user,comm | awk -v p="$proc" '$2==p{count[$1]++} END{for(u in count) print u, count[u]}'
 }
 
+# Show open files for your own processes only
+function b_check_my_openfiles() {
+    local proc="$1"
+    if [[ -z "$proc" ]]; then
+        echo "Usage: b_check_my_openfiles <process_name>"
+        return 1
+    fi
+    
+    # Get PIDs of your own processes first
+    local my_pids=$(ps -u $(whoami) -o pid,comm | awk -v p="$proc" '$2==p{print $1}' | tr '\n' ' ')
+    
+    if [[ -z "$my_pids" ]]; then
+        echo "No $proc processes found for user $(whoami)"
+        return 1
+    fi
+
+    echo "Your '$proc' processes: $my_pids"
+    for pid in $my_pids; do
+        echo "=== Files for PID $pid ==="
+        lsof -p "$pid" 2>/dev/null | grep -E "(REG|DIR)" | head -10
+        echo
+    done
+}
+
+# Show running EDA synthesis/simulation jobs
+function b_check_eda_jobs() {
+    echo "=== Running EDA Jobs ==="
+    echo "--- Synthesis Jobs ---"
+    ps aux | grep -E "(dc_shell|icc2_shell|genus)" | grep -v grep
+    
+    echo "--- Simulation Jobs ---"
+    ps aux | grep -E "(vcs|ncsim|vsim|xsim)" | grep -v grep
+    
+    echo "--- P&R Jobs ---"
+    ps aux | grep -E "(innovus|encounter|icc2)" | grep -v grep
+    
+    echo "--- Verification Jobs ---"
+    ps aux | grep -E "(vc_static|spyglass|jaspergold)" | grep -v grep
+}
+
 # -----------------------------------------------------------
 # Function #5 : Utils
 # -----------------------------------------------------------
+function b_crlf_to_lf() {
+    find . -type f -exec sed -i 's/\r$//' {} +
+    echo "Done : CRLF -> LF Change"
+}
+
 function b_get_vlog_filelist() {
     xmls -source $1
 }
@@ -130,6 +190,18 @@ function b_find_files() {
   find -L "$path" -name "$pattern" \
     | { [[ $include_pattern ]] && grep "$include_pattern" || cat; } \
     | { [[ $exclude_pattern ]] && grep -v "$exclude_pattern" || cat; }
+}
+
+# Find files modified in last N days
+function b_find_recent_modified_files() {
+    local days="${1:-7}"
+    find . -type f -mtime -"$days" -exec ls -lt {} + | head -20
+}
+
+# Find large files
+function b_find_large_files() {
+    local size="${1:-100M}"
+    find . -type f -size +"$size" -exec ls -lh {} \; | sort -k5 -hr
 }
 
 # -----------------------------------------------------------

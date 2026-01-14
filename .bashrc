@@ -66,8 +66,8 @@
 
     # Set history length and format.
     export HISTTIMEFORMAT='%Y-%m-%d %H:%M:%S '
-    HISTSIZE=20
-    HISTFILESIZE=100
+    HISTSIZE=2000
+    HISTFILESIZE=10000
 
     if [ command shopt &> /dev/null ]; then
         
@@ -149,3 +149,8 @@ if [ -f ~/.bash/.bash_unset ]; then
     source ~/.bash/.bash_unset
 fi
 alias docker=podman
+alias docker=podman
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
