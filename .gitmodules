@@ -1,3 +1,12 @@
 [submodule "modules"]
 	path = modules
 	url = https://github.com/beom-git/eda-modules.git
+[submodule "utils/buildEnvironment"]
+	path = utils/buildEnvironment
+	url = https://github.com/beom-git/buildEnvironment.git
+[submodule "utils/cssApp"]
+	path = utils/cssApp
+	url = https://github.com/beom-git/cssApp.git
+[submodule "utils/export_businterface"]
+	path = utils/export_businterface
+	url = https://github.com/beom-git/export_businterface.git
