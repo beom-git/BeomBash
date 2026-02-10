@@ -59,6 +59,8 @@
 # Reference : https://www.gnu.org/software/bash/manual/html_node/The-Shopt-Builtin.html
 #             https://mug896.github.io/bash-shell/shell_options.html
 #
+	# Capability with csh's setenv
+	( unset x ; set x=1 ; test x$x != x1 ) && eval setenv\(\) { export \$1=\"\$2\" \; }
 
     # Don't put duplicate lines or lines starting with space in the history.
     # See bash(1) for more options.
