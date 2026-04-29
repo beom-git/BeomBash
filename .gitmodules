@@ -10,3 +10,12 @@
 [submodule "utils/export_businterface"]
 	path = utils/export_businterface
 	url = https://github.com/beom-git/export_businterface.git
+[submodule "utils/uvmGenerator"]
+	path = utils/uvmGenerator
+	url = https://github.com/beom-git/uvmGenerator.git
+[submodule "utils/elf2mem"]
+	path = utils/elf2mem
+	url = https://github.com/beom-git/elf2mem.git
+[submodule "utils/memoryWrapperGen"]
+	path = utils/memoryWrapperGen
+	url = https://github.com/beom-git/memoryWrapperGen.git
