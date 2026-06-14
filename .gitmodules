@@ -1,0 +1,48 @@
+[submodule "modules"]
+	path = modules
+	url = https://github.com/beom-git/eda-modules.git
+	branch = main
+[submodule "utils/buildEnvironment"]
+	path = utils/buildEnvironment
+	url = https://github.com/beom-git/buildEnvironment.git
+	branch = master
+[submodule "utils/cssApp"]
+	path = utils/cssApp
+	url = https://github.com/beom-git/cssApp
+	branch = master
+[submodule "utils/export_businterface"]
+	path = utils/export_businterface
+	url = https://github.com/beom-git/export_businterface.git
+	branch = master
+[submodule "utils/uvmGenerator"]
+	path = utils/uvmGenerator
+	url = https://github.com/beom-git/uvmGenerator.git
+	branch = master
+[submodule "utils/elf2mem"]
+	path = utils/elf2mem
+	url = https://github.com/beom-git/elf2mem.git
+	branch = master
+[submodule "utils/memoryWrapperGen"]
+	path = utils/memoryWrapperGen
+	url = https://github.com/beom-git/memoryWrapperGen.git
+	branch = master
+[submodule "utils/bare-metal-firmware"]
+	path = utils/bare-metal-firmware
+	url = https://github.com/beom-git/bare-metal-firmware
+	branch = master
+[submodule "utils/cosim-sdk"]
+	path = utils/cosim-sdk
+	url = https://github.com/beom-git/cosim-sdk.git
+	branch = master
+[submodule "utils/root_ci"]
+	path = utils/root_ci
+	url = https://github.com/beom-git/root_ci.git
+	branch = master
+[submodule "utils/svlog-cell"]
+	path = utils/svlog-cell
+	url = https://github.com/beom-git/svlog-cell.git
+	branch = master
+[submodule "utils/svlog-library"]
+	path = utils/svlog-library
+	url = https://github.com/beom-git/svlog-library.git
+	branch = master

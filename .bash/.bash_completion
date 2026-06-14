@@ -1,0 +1,48 @@
+#!/bin/bash -f
+
+#
+# Git completion
+#
+# prior to git 2.30, you an use _git instead of __git_main
+#
+
+git_version=$(git --version | awk '{print $3}')
+git_major=$(echo "$git_version" | awk -F. '{print $1}')
+git_minor=$(echo "$git_version" | awk -F. '{print $2}')
+if [[ $git_major -ge 2 && $git_minor -ge 30 ]]; then # git version >= 2.30
+    printf "git version is %s\n" "$git_version"
+    source /usr/share/bash-completion/completions/git
+fi
+
+# source /usr/share/bash-completion/bash_completion
+
+# source /usr/share/bash-completion/completions/make
+#
+# Makefile target completion
+#
+_make_completion() {
+    local cur="${COMP_WORDS[COMP_CWORD]}"
+    local mf
+
+    for mf in GNUmakefile makefile Makefile; do
+        [[ -f "$mf" ]] && break
+    done
+    [[ -f "$mf" ]] || return 0
+
+    local targets
+    targets=$(
+        make -prRn -f "$mf" : 2>/dev/null \
+        | awk -F: '/^[A-Za-z0-9][^$#\/\t=]*:([^=]|$)/ { print $1 }' \
+        | tr ' ' '\n' \
+        | sed '/^$/d; /^\./d' \
+        | sort -u
+    )
+
+    COMPREPLY=( $(compgen -W "$targets" -- "$cur") )
+}
+
+complete -F _make_completion make gmake
+
+# source /usr/share/bash-completion/completions/gcc
+
+# source /usr/share/bash-completion/completions/systemctl
