@@ -219,7 +219,7 @@ function b_find_broken_symbolic() {
 # Function #7 : source env
 # -----------------------------------------------------------
 function b_source_pj() {
-    source "$(git rev-parse --show-toplevel)/sourceMe.bashrc"
+    source "$(git rev-parse --show-toplevel)/SourceMe.sh"
 }
 
 # -----------------------------------------------------------
